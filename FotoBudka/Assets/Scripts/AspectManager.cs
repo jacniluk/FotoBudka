@@ -11,6 +11,8 @@ public class AspectManager : MonoBehaviour
 
     private bool wasClickedOnUi;
     private Vector3 lastMousePosition;
+    private Vector3 mouseOffset;
+
     private Transform modelTransform;
 
     private void Awake()
@@ -33,10 +35,14 @@ public class AspectManager : MonoBehaviour
 
         if (Input.GetMouseButton(0) && wasClickedOnUi == false)
         {
-            float x = Input.mousePosition.x - lastMousePosition.x;
-            float y = Input.mousePosition.y - lastMousePosition.y;
-
-            modelTransform.Rotate(new Vector3(-y, x, 0.0f));
+            mouseOffset = Input.mousePosition - lastMousePosition;
+            float angle = Vector3.Dot(mouseOffset, Camera.main.transform.right);
+            if (Vector3.Dot(modelTransform.up, Vector3.up) >= 0)
+            {
+                angle = -angle;
+            }
+            modelTransform.Rotate(modelTransform.up, angle, Space.World);
+            modelTransform.Rotate(Camera.main.transform.right, Vector3.Dot(mouseOffset, Camera.main.transform.up), Space.World);
         }
 
         lastMousePosition = Input.mousePosition;
