@@ -14,7 +14,7 @@ public class ScreenshotManager : MonoBehaviour
 
     private void Awake()
     {
-        outputPath = Application.dataPath + "/Output/";
+        outputPath = Application.dataPath + "/../Output/";
     }
 
     private void Start()

@@ -23,7 +23,7 @@ public class ModelsManager : MonoBehaviour
 
     private void ImportModels()
     {
-        string[] objFilesPaths = Directory.GetFiles(Application.dataPath + "/Input", "*.obj");
+        string[] objFilesPaths = Directory.GetFiles(Application.dataPath + "/../Input", "*.obj");
         for (int i = 0; i < objFilesPaths.Length; i++)
         {
             GameObject model = new OBJLoader().Load(objFilesPaths[i]);
