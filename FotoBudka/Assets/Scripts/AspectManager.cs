@@ -6,11 +6,16 @@ public class AspectManager : MonoBehaviour
     [SerializeField] private float minFov;
     [SerializeField] private float maxFov;
 
-    [Header("References")]
-    [SerializeField] private Transform model; // temp
+    public static AspectManager Instance;
 
-    private Vector3 lastMousePosition;
     private bool wasClickedOnUi;
+    private Vector3 lastMousePosition;
+    private Transform modelTransform;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
@@ -30,7 +35,7 @@ public class AspectManager : MonoBehaviour
             float x = Input.mousePosition.x - lastMousePosition.x;
             float y = Input.mousePosition.y - lastMousePosition.y;
 
-            model.Rotate(new Vector3(-y, x, 0.0f));
+            modelTransform.Rotate(new Vector3(-y, x, 0.0f));
         }
 
         lastMousePosition = Input.mousePosition;
@@ -42,5 +47,10 @@ public class AspectManager : MonoBehaviour
         {
             Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - Input.mouseScrollDelta.y, minFov, maxFov);
         }
+    }
+
+    public void SetModelTransform(Transform _modelTransform)
+    {
+        modelTransform = _modelTransform;
     }
 }
