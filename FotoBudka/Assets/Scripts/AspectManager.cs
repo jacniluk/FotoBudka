@@ -10,6 +10,7 @@ public class AspectManager : MonoBehaviour
     [SerializeField] private Transform model; // temp
 
     private Vector3 lastMousePosition;
+    private bool wasClickedOnUi;
 
     private void Update()
     {
@@ -19,7 +20,12 @@ public class AspectManager : MonoBehaviour
 
     private void UpdateRotation()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            wasClickedOnUi = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        }
+
+        if (Input.GetMouseButton(0) && wasClickedOnUi == false)
         {
             float x = Input.mousePosition.x - lastMousePosition.x;
             float y = Input.mousePosition.y - lastMousePosition.y;
