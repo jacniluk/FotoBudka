@@ -3,8 +3,9 @@ using UnityEngine;
 public class AspectManager : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float minFov;
-    [SerializeField] private float maxFov;
+    [SerializeField] private float minZoom;
+    [SerializeField] private float maxZoom;
+    [SerializeField] private float zoomStep;
 
     public static AspectManager Instance;
 
@@ -45,7 +46,7 @@ public class AspectManager : MonoBehaviour
     {
         if (Input.mouseScrollDelta.y != 0.0f)
         {
-            Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - Input.mouseScrollDelta.y, minFov, maxFov);
+            Camera.main.transform.position = new Vector3(0.0f, 0.0f, Mathf.Clamp(Camera.main.transform.position.z + Input.mouseScrollDelta.y * zoomStep, minZoom, maxZoom));
         }
     }
 
