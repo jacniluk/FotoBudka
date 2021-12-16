@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class AspectManager : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private float minFov;
+    [SerializeField] private float maxFov;
+
     [Header("References")]
     [SerializeField] private Transform model; // temp
 
@@ -10,6 +14,7 @@ public class AspectManager : MonoBehaviour
     private void Update()
     {
         UpdateRotation();
+        UpdateZoom();
     }
 
     private void UpdateRotation()
@@ -23,5 +28,13 @@ public class AspectManager : MonoBehaviour
         }
 
         lastMousePosition = Input.mousePosition;
+    }
+
+    private void UpdateZoom()
+    {
+        if (Input.mouseScrollDelta.y != 0.0f)
+        {
+            Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView - Input.mouseScrollDelta.y, minFov, maxFov);
+        }
     }
 }
