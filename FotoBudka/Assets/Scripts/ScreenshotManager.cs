@@ -14,7 +14,14 @@ public class ScreenshotManager : MonoBehaviour
 
     private void Awake()
     {
-        outputPath = Application.dataPath + "/../Output/";
+        if (Application.dataPath.Contains(" ") == false)
+        {
+            outputPath = Application.dataPath + "/../Output/";
+        }
+        else
+        {
+            outputPath = Application.persistentDataPath + "/Output/";
+        }
     }
 
     private void Start()
@@ -34,7 +41,7 @@ public class ScreenshotManager : MonoBehaviour
     {
         canvas.enabled = false;
 
-        string fileName = outputPath + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+        string fileName = outputPath + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
         if (File.Exists(fileName + ImageExtension))
         {
             int fileIndex = 2;
