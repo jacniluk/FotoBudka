@@ -36,6 +36,8 @@ public class ModelsManager : MonoBehaviour
 
         if (models.Count != 0)
         {
+            modelsContainer.transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+
             AspectManager.Instance.SetModelTransform(models[currentModelIndex].transform);
         }
     }
